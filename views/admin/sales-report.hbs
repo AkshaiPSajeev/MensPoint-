@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row mt-5 mx-auto">
+        <div class="col-md-4 border">
+             <form action="/admin/sales-report" method="post" id="">
+               
+                 <div class="form-group">
+                    <label for="From">From</label>
+                    <input type="date" class="form-control " name="From" min="{{mindate}}" id="from" >
+                </div>
+                  <div class="form-group">
+                    <label for="To">To</label>
+                    <input type="date" class="form-control" name="To" min="{{mindate}}"   id="to" >
+                </div>
+                
+                <div class="text-center pt-3">
+                     <button type="submit" class="btn btn-primary ">Generate Report</button><br>
+                </div>
+               
+            </form>
+        </div>
+        {{#if reportObj}}
+        <div class="col-md-4 border mx-5 text-center">
+            <h5>Sales Report</h5>
+            <h5>From:{{ reportObj.from}}</h5>
+            <h5>To :{{ reportObj.to}}</h5>
+            <h5>Revenue :{{reportObj.revenueGenerated}}</h5>
+            <h5>Total Orders:{{reportObj.ordersDelivered}}</h5>
+           
+
+   
+        </div>
+        {{/if}}
+         
+    </div>
+    
+</div>

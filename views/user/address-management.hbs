@@ -1,0 +1,30 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <a href="/add-address"><button class="btn btn-success mx-5 mt-4">Add new
+          Address</button>
+      </a>
+    </div>
+    {{#each addresses}}
+      <div class="card mt-3 col-md-6 m-auto">
+
+        <div class="card-body ">
+          <h5 class="card-title">Address {{@index_1}}<span></span></h5>
+          <p class="card-text">House Name : {{this.HouseName}} </p>
+          <p class="card-text">Street&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{this.Street}}</p>
+          <p class="card-text">City&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{this.City}}</p>
+            <p class="card-text">State&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{this.State}}</p>
+          <p class="card-text">Pin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{this.Pin}}</p>
+
+              <a href="/edit-address/{{this._id}}" class="btn btn-primary  ">Edit</a>
+             <a href="/delete-address/{{this._id}}" class="btn btn-Danger  ">Delete</a>
+         
+           
+          
+        </div>
+      </div>
+
+    {{/each}}
+
+  </div>
+</section>

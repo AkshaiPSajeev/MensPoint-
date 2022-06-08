@@ -1,0 +1,20 @@
+<div>
+  <div class="container">
+    <div class="row">
+          {{#each coupons}}
+      <div class="col-md-3 pt-5">
+      
+        <div class="card text-white bg-primary mb-3" style="max-width: 18rem; height:14rem;">
+         
+          <div class="card-body text-center">
+            <h2 class="card-title">Flat {{this.OfferValue}}% off</h2>
+            <p class="card-text">Use the coupon code to avail {{this.OfferValue}}% off on your next purchase</p>
+            <h5>Code : {{this.CouponCode}}</h5>
+          </div>
+        </div>
+       
+      </div>
+       {{/each}}
+    </div>
+  </div>
+</div>

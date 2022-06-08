@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <div class="container mt-5 pl-5  ">
+            <h2 class="text-center m-4">Add Coupon</h2>
+     
+            <form action="add-coupon" method="post" id="formAddCoupon">
+                <div class="form-group">
+                    <label for="">Enter Coupon Code</label>
+                    <input type="text" class="form-control " name="CouponCode"  id="" value="" >
+                    
+                </div>
+                 <div class="form-group">
+                    <label for="">Start Date</label>
+                    <input type="date" class="form-control" name="StartDate" min="{{mindate}}" id="startdate">
+                </div>
+                  <div class="form-group">
+                    <label for="">End Date</label>
+                    <input type="date" class="form-control" name="EndDate" min="{{mindate}}"   id="enddate" >
+                </div>
+                <div class="form-group">
+                    <label for="">Offer in Percentage</label>
+                    <input type="number" class="form-control" min="5" max="90" name="OfferValue"  id="">
+                </div>
+                <div class="text-center pt-3">
+                     <button type="submit" class="btn btn-primary ">Add Coupon</button><br>
+                </div>
+               
+            </form>
+        </div>
+    </div>
+</div>
+

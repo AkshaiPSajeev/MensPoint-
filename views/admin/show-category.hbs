@@ -1,0 +1,41 @@
+<section>
+    <div class="container ">
+        <div class="row ">
+            <a href="/admin/add-category" ><button class="btn btn-success mx-5 mt-4"><i class="fa-solid fa-plus m-2"></i>Add Category</button> </a>
+        </div>
+        <table class="table mt-4  table-hover text-center .table-responsive">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Category</th>
+      <th scope="col" >Total Products</th>
+      <th scope="col">Offer</th>
+      <th scope="col">Action</th>
+    
+      
+    </tr>
+  </thead>
+  <tbody>
+      {{#each categories}}
+    <tr>
+      <th scope="row">{{counter @index}} </th>
+      <td>{{this.CategoryName}}</td>
+      <td>{{this.Total}}</td>
+      {{#if this.Offer.Status}}
+      <td>{{this.Offer.Value}}% Offer added</td>
+      <td><a href="/admin/withdraw-offer/{{this.CategoryName}}" class="btn btn-danger">Withdraw offer</a></td>
+      {{else}}
+       <td>No Offer Added</td>
+       <td><a href="/admin/add-offer/{{this.CategoryName}}" class="btn btn-primary">Add Offer</a></td>
+      {{/if}}
+
+     
+        
+      
+    </tr>
+    {{/each}}
+    
+  </tbody>
+</table>
+    </div>
+</section>

@@ -1,0 +1,39 @@
+ <section>
+      <div class="container mt-5">
+        <div class="row">
+            {{#each products}}
+            <div class="col-md-3 col-sm-12 col-xs-12 p-3 ">
+            <div class="card text-center shadow" style=" height:20rem;">
+              <a href="/product-details/{{this._id}}">
+              <div style="height:70%;">
+                     <img
+             src="/product-images/{{this._id}}.jpg"
+              class="card-img-top img-fluid big_img " style="height: 10rem;"
+              alt="..."
+            />
+                </div></a>  
+           
+            <div class="card-body" >
+              <a href="/product-details/{{this._id}}"><h5 class="card-title">{{this.Name}}</h5></a>
+              {{#if this.Offer.Status}}
+                 <h5> &#8377; {{this.DiscountedPrice }}</h5>
+                  {{!-- <h5> &#8377; {{getFinalValue this.Price this.Offer.Value}}</h5> --}}
+                  <span style="color: #7e837f;"><strong><s>&#8377;{{this.Price}}</s></strong></span> &nbsp;
+                  <span style="color: #41a65a;"><strong>{{this.Offer.Value}}% Off</strong></span> <br>
+                {{else}}
+                 <h5> &#8377; {{this.Price}}</h5>
+              {{/if}}
+             
+             
+             
+              <button onclick="addToCart('{{this._id}}')"  class="btn btn-primary"> Add to cart</button>
+            </div>
+          </div>
+            </div>
+            {{/each}}
+        
+
+        </div>
+      </div> 
+
+    </section>

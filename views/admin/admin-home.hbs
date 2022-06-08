@@ -1,0 +1,102 @@
+<section>
+  <div class="row d-flex justify-content-between ml-5 mt-5 mr-5">
+        <div class="card col-md-2 text-center ">
+            <h5 class="mt-3">Total Orders</h5>
+            <h5>{{totalOrders}}</h5>
+
+          
+        </div>
+        <div class="card col-md-2  text-center ">
+            <h5 class="mt-3">Total Cutomers</h5>
+            <h5>{{users}}</h5>
+        </div>
+        <div class="card col-md-2 text-center ">
+            <h5 class="mt-3">Total Revenue</h5>
+           
+            <h5>&#8377;{{totalSales}}</h5>
+        </div>
+  </div>
+
+    <input type="text" value="{{days}}" id="days" hidden>
+     <input type="text" value="{{revenue}}" id="revenue" hidden>
+  <div class=" d-flex mt-5">
+    <div class="col-md-6">
+      <canvas id="myChart2"></canvas>
+    
+
+    </div>
+    <div class="col-md-6">
+      <canvas id="myChart"></canvas>
+      <input type="text" value="{{paymentCounts}}" id="paymentcounts" hidden>
+    </div>
+  
+  </div>
+
+</section>  
+
+
+     
+
+
+
+
+<script>
+  let paymentcounts=document.getElementById('paymentcounts').value;
+let days=document.getElementById('days').value;
+let revenue=document.getElementById('revenue').value;
+
+
+var xValues = ["Paypal", "Cash on Delivery", "Razorpay"];
+var yValues = [paymentcounts.split(',')[0],paymentcounts.split(',')[1], paymentcounts.split(',')[2]];
+var barColors = [
+  "#b91d47",
+  "#00aba9",
+  "#2b5797",
+
+];
+new Chart("myChart", {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Delivery Mode'
+    }
+  }
+});
+
+var xValues2 = [...days.split(",")];
+var yValues2 = [...revenue.split(",")];
+/*var xValues2 = [50,60,70,80,90,100,110,120,130,140,150];
+var yValues2 = [7,8,8,9,9,9,10,11,14,14,15];*/
+
+new Chart("myChart2", {
+  type: "line",
+  data: {
+    labels: xValues2,
+    datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,0.1)",
+      data: yValues2
+    }]
+  },
+  options: {
+     title: {
+      display: true,
+      text: 'Daily Sales'
+    },
+    legend: {display: false}/*,
+    scales: {
+      yAxes: [{ticks: {min: 6, max:16}}],
+    }*/
+  }
+});
+</script>

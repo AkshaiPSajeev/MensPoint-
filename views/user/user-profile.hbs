@@ -1,0 +1,48 @@
+
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-light"></div>
+            <div class="list-group list-group-flush">
+              
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/edit-user-details">Edit Details</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/address-management">Address Management</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/change-password">Change Password</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/offers-coupons">Offers and Coupons</a>
+               
+              
+            </div>
+        </div>
+        <!-- Page content wrapper-->
+       
+            <!-- Top navigation-->
+          
+            <!-- Page content-->
+            <div class="container-fluid mx-5 mt-5">
+                <div class="text-align-center">
+                    <p> Name :<span>{{userProfile.Name}}</span></p>
+                     <p>Email :<span>{{userProfile.Email}}</span></p><br>
+                    <label for="">Referal link :</label>
+                    <input type="text" value="localhost:3000/signup?referal={{user._id}}" disabled class="w-50" id="referallink"><button onclick="copyLink()">get link</button>
+                    <span id="msg"></span><br><br>
+                    {{#if user.Wallet}}
+                    <label for="">Wallet Amount Remaining : </label><span>&nbsp;&#8377;{{userProfile.Wallet}}</span>
+                    
+                    {{/if}}
+                </div>
+                   
+            </div>
+        
+    </div>
+
+    <script>
+        function copyLink(){
+          
+            let referallink=document.getElementById('referallink');
+            referallink.select();
+            referallink.setSelectionRange(0, 99999); /* For mobile devices */
+            navigator.clipboard.writeText(referallink.value);
+            /*document.getElementById('msg').innerHTML='copied referal link'*/
+           
+        }
+    </script>

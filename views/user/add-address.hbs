@@ -1,0 +1,62 @@
+<section class="mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <h2 class="text-center ">Add New Address</h2>
+                <p class="text-success" id="message">{{message}}</p>
+                <form action="add-address" method="post"  id="form">
+                <label for="">House Name</label>
+                <input type="text" name="HouseName" class="form-control" id="housename" >
+                  <label for="">Street</label>
+                <input type="text" name="Street" class="form-control" id="street">
+                  <label for="">City/District</label>
+                <input type="text" name="City" class="form-control" id="city">
+                  <label for="">State</label>
+                <input type="text" name="State" class="form-control" id="state">
+                 <label for="">Pin</label>
+                <input type="text" name="Pin" class="form-control" id="pin">
+                 
+                <p id="error" class="text-danger text-center"></p>
+                <button type="submit" class="btn btn-primary mt-4  w-100">Add Address</button>
+            </form>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<script>
+
+let housename=document.getElementById('housename');
+let street=document.getElementById('street');
+let city=document.getElementById('city');
+let state=document.getElementById('state');
+let pin=document.getElementById('pin');
+
+form.addEventListener('submit',(e)=>{
+        if(housename.value==""&&street.value==""&&city.value==""&&state.value==""&&pin.value==""){
+            document.getElementById('error').innerHTML="Enter the address fields";
+            e.preventDefault();
+        }
+          else if(housename.value==""){
+            document.getElementById('error').innerHTML="Enter house name";
+            e.preventDefault();
+        }else if(street.value==""){
+            document.getElementById('error').innerHTML="Enter street";
+            e.preventDefault();
+        }else if(city.value==""){
+            document.getElementById('error').innerHTML="Enter city or district";
+            e.preventDefault();
+        }else if(state.value==""){
+            document.getElementById('error').innerHTML="Enter the state";
+            e.preventDefault();
+        }else if(pin.value==""){
+            document.getElementById('error').innerHTML="Enter PIN Number";
+            e.preventDefault();
+        }
+        {{!-- else  if (!pin.value.match(/^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$/)) {
+            document.getElementById('error').innerHTML="Enter a valid PIN Number";
+            e.preventDefault();
+        } --}}
+    })
+</script>

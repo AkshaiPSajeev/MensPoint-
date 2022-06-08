@@ -1,0 +1,118 @@
+{{!-- <section>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 ">
+                <h2 class="text-center ">Add product</h2>
+                <p class="text-success" id="message">{{message}}</p>
+                <form action="add-product" method="post" enctype="multipart/form-data" id="form">
+                <label for="">Name</label>
+                <input type="text" name="Name" class="form-control" id="name" >
+                  <label for="">Category</label>
+                <input type="text" name="Category" class="form-control" id="category">
+                  <label for="">Price</label>
+                <input type="text" name="Price" class="form-control" id="price">
+                  <label for="">Description</label>
+                  <textarea name="Description" class="form-control" id="description" rows="10" ></textarea>
+                 <input type="t" name="Description" class="form-control" id="description"> 
+                  <label for="">Image</label>
+                <input type="file" name="imagepath" class="form-control" id="imagepath">
+                <p id="error" class="text-danger text-center"></p>
+                <div class="text-center">
+                <button type="submit" class="btn btn-success mt-4 mx-5">Add Product</button>
+                </div>
+            </form>
+            </div>
+            
+        </div>
+    </div>
+</section>  --}}
+
+<section>
+ 
+    <div class="container mt-5">
+                <h2 class="text-center ">Add product</h2>
+                <p class="text-success" id="message">{{message}}</p>
+                <form action="add-product" method="post" enctype="multipart/form-data" id="form">
+        <div class="row">
+          <div class="col-md-6">
+             <label for="">Description</label>
+                  <textarea name="Description" class="form-control" id="description" rows="9" ></textarea>
+          </div>
+            <div class="col-md-6 ">
+               <label for="">Name</label>
+                <input type="text" name="Name" class="form-control" id="name" >
+                 <label for="">Category</label>
+                 <select id="CategorySelected" name="Category" class="form-control" onchange='populateSubCategory({{categories}})' >
+                   <option value="">----Select Category----</option>
+                   {{#each categories}}
+                  <option value="{{this.CategoryName}}">{{this.CategoryName}}</option>
+                   {{/each}}
+                  </select>
+                
+                   <div class="form-group">
+                   
+                
+                  <label for="">Price</label>
+                <input type="text" name="Price" class="form-control" id="price">
+                 
+                {{!-- <input type="t" name="Description" class="form-control" id="description"> --}}
+                  <label for="">Image</label>
+                <input type="file" name="imagepath" class="form-control" id="imagepath">
+                <p id="error" class="text-danger text-center"></p>
+               
+            
+            </div>
+            
+        </div>
+         <div class="text-center">
+                <button type="submit" class="btn btn-success mt-4 ">Add Product</button>
+                </div>
+        </form>
+    </div>
+</section>
+
+<script>
+  (function(){
+
+    setTimeout(()=>{
+      if(document.getElementById('message').innerHTML!=""){
+         document.getElementById('message').style.display='none';
+      }
+     
+    },1500)
+
+  })();
+let name=document.getElementById('name');
+let category=document.getElementById('category');
+let price=document.getElementById('price');
+let description=document.getElementById('description');
+let imagepath=document.getElementById('imagepath');
+form.addEventListener('submit',(e)=>{
+        if(name.value==""&&category.value==""&&price.value==""&&description.value==""&&imagepath.value==""){
+            document.getElementById('error').innerHTML="enter product details";
+            e.preventDefault();
+        }
+          else if(name.value==""){
+            document.getElementById('error').innerHTML="enter name of product";
+            e.preventDefault();
+        }else if(category.value==""){
+            document.getElementById('error').innerHTML="enter category";
+            e.preventDefault();
+        }else if(price.value==""){
+            document.getElementById('error').innerHTML="enter price";
+            e.preventDefault();
+        }else if(description.value==""){
+            document.getElementById('error').innerHTML="enter description";
+            e.preventDefault();
+        }else if(imagepath.value==""){
+            document.getElementById('error').innerHTML="please upload image";
+            e.preventDefault();
+        }else  if (!name.value.match(/^[a-zA-Z]*$/)) {
+            document.getElementById('error').innerHTML="Numbers are not allowed in name field";
+            e.preventDefault();
+        }else if(!price.value.match(/^[0-9]*$/)){
+             document.getElementById('error').innerHTML="Price should be in numbers";
+            e.preventDefault();
+        }
+    })
+</script>

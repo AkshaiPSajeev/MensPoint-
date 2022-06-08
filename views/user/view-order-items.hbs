@@ -1,0 +1,21 @@
+<div class="container mt-5 mx-auto">
+  
+  {{#each items.Products}}
+    <div class="row d-flex">
+      <div class="card text-center" style="width: 18rem;">
+        <img class="card-img-top" src="/product-images/{{this._id}}.jpg" alt="Card image cap">
+        <div class="card-body">
+         <h5 class="card-title">{{this.Name}}</h5>
+        {{#if this.Offer.Status}}
+          <span><strong>Price: &#8377;{{this.DiscountedPrice}}</strong></span><br>
+          <span class="text-success"><strong>{{this.Offer.Value}}% Discount Added</strong></span>
+          {{else}}
+          <p><strong>Price: &#8377;{{this.Price}}</strong></p>
+        {{/if}}
+      </div>
+    </div>
+   
+      
+    </div>
+  {{/each}}
+</div>

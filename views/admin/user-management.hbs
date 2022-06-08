@@ -1,0 +1,50 @@
+<section>
+    <div class="container">
+       
+        <table class="table mt-4  table-bordered text-center">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Name</th>
+      <th scope="col" >Email</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    
+      
+    </tr>
+  </thead>
+  <tbody>
+      {{#each users}}
+    <tr>
+      <th scope="row">{{counterPagination ../startIndex @index}}</th>
+      <td>{{this.Name}}</td>
+      <td>{{this.Email}}</td>
+      {{#if this.Status}}
+      <td class="text-success "><strong>Active</strong></td>
+      <td><a href="/admin/block/?id={{this._id}}" class="btn btn-danger">Block</a></td>
+      {{else}}
+      <td class="text-danger"><strong>Blocked</strong></td>
+       <td><a href="/admin/unblock/?id={{this._id}}" class="btn btn-success">Unblock</a></td>
+      {{/if}}
+
+        
+      
+    </tr>
+    {{/each}}
+    
+  </tbody>
+</table>
+     {{#if totalpages}}
+<nav aria-label="Page navigation example ">
+  <ul class="pagination">
+ 
+    {{#times totalpages}}
+    <li class="page-item"><a class="page-link" href="/admin/user-management?page={{this}}">{{this}}</a></li>
+    {{/times}}
+   
+
+  </ul>
+</nav>
+{{/if}}
+    </div>
+</section>

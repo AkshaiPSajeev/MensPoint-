@@ -1,0 +1,39 @@
+
+<div class="container mt-5 pt-3 ">
+    <div class="row">
+        <div class="col-md-6">
+            <div >
+                <div  class="img-container11">
+                    <img src="/product-images/{{product._id}}.jpg" alt=""  class="card-img-top img-fluid " id="myimage" style="height: 18rem;">
+                     {{!-- <div id="myresult" class="img-zoom-result"></div> --}}
+                </div>
+     
+                
+            </div>
+        </div>
+        <div class="col-md-6 px-5">
+            <div class="col-md-12 ">
+                <div>
+                 <h2 class="">{{product.Name}}</h2>
+                    {{#if product.Offer.Status}}
+                 <h5> &#8377; {{getFinalValue product.Price product.Offer.Value}}</h5>
+                  <span style="color: #7e837f;"><strong><s>&#8377;{{product.Price}}</s></strong></span> &nbsp;
+                  <span style="color: #41a65a;"><strong>{{product.Offer.Value}}% Off</strong></span> <br>
+                {{else}}
+                 <h5> &#8377; {{product.Price}}</h5>
+              {{/if}}
+                </div>
+                <div class="mt-4">
+                    <p><strong>Description :</strong>{{product.Description}}</p>
+                </div>
+                <div class="">
+                     <button onclick="addToCart('{{product._id}}')"  class="btn btn-primary mx-auto"> Add to cart</button>
+                </div>
+               
+               
+                
+            </div>
+        </div>
+    </div>
+</div> 
+

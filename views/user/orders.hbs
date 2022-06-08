@@ -1,0 +1,153 @@
+<section>
+  <div class="container">
+    {{#if orders}}
+  
+    {{!-- <table class="table mt-4  table-striped  table-hover  text-center">
+      <thead>
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Ordered Items</th>
+          <th scope="col">Delivery Address</th>
+ 
+          <th scope="col">Order Status</th>
+          <th scope="col">Action</th>
+         
+
+        </tr>
+      </thead>
+      <tbody>
+        {{#each orders}}
+          <tr>
+            <th scope="row">{{counterPagination ../startIndex @index}} </th>
+            <td>{{#each this.Products}}   
+
+                    
+                      <span>{{this.Name}}</span>
+                      <p >{{this.Price}}</p>
+                      <p >{{this.quantity}}</p>
+                      
+                 
+              {{/each}}
+            </td>
+            <td><div class="containe mx-auto">
+            
+                     
+                      <span >{{this.Address.HouseName}}</span><br>
+                       <span>{{this.Address.Street}}</span><br>
+                      <span >{{this.Address.City}}</span><br>
+                       <span >{{this.Address.State}}</span><br>
+                        <span >{{this.Address.Pin}}</span><br>
+                    
+                    
+                </div></td>
+          
+              
+               {{#if this.Status.placed}}
+                  <td><span class="text-primary"><strong> order is placed waiting to dispatch</strong></span></td>
+                   <td> <a href="/cancel-order/{{this._id}}" class="btn btn-warning " >Cancel Order</a></td>
+               {{/if}}
+               {{#if this.Status.dispatched}}
+                  <td><span style="color:blue;"><strong> Order dispatched and on the way</strong></span></td>
+                   <td> <a href="/delivered-order/{{this._id}}" class="btn btn-primary">Got Order</a></td>
+               {{/if}}
+                {{#if this.Status.delivered}}
+                  <td><span style="color:green;"><strong> You recieved your order</strong></span></td>
+                   <td> <a href="" class="btn btn-success">Review Order</a></td>
+               {{/if}}
+             
+            
+             
+            
+            
+           
+
+          </tr>
+        {{/each}}
+
+      </tbody>
+    </table> --}}
+    <table class="table table-striped table-hover mt-4">
+  <thead>
+    <tr>
+      <th scope="col">No.</th>
+      <th scope="col">Date</th>
+      <th scope="col">Address</th>
+      <th scope="col">Pincode</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Payment</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+   
+      {{#each orders}}
+       <tr>
+            <th scope="row">{{counterPagination ../startIndex @index}} </th>
+            <td>{{convertDate this.Date}}</td>
+            <td>{{this.Address.HouseName}}</td>
+            <td>{{this.Address.Pin}}</td>
+            <td>{{this.TotalAmount}}</td>
+            {{#if this.PaymentMode.COD}}
+            <td>C.O.D</td>
+            {{else}}
+              {{#if this.PaymentMode.Razorpay}}
+                <td>Razorpay</td>
+                {{else}}
+                 <td>Paypal</td>
+              {{/if}}
+            
+            {{/if}}
+            {{#if this.Status.delivered}}
+            <td>Delivered</td>
+            {{/if}}
+             {{#if this.Status.dispatched}}
+            <td>Dispatched</td>
+            {{/if}}
+            {{#if this.Status.cancelled}}
+            <td>Cancelled</td>
+            {{/if}}
+            {{#if this.Status.placed}}
+            <td>Placed</td>
+            {{/if}}
+           
+            <td><a href="/view-orderitems?orderId={{this._id}}" class="btn btn-success">View items</a></td>
+         
+             {{!-- <td> <a href="/cancel-order/{{this._id}}" class="btn btn-danger " >Cancel Order</a></td> --}}
+            {{#if this.Status.placed}}
+             <td> <a href="/cancel-order/{{this._id}}" class="btn btn-danger " >Cancel Order</a></td>
+             {{else}}
+              {{#if this.Status.dispatched}}
+                  <td> <a href="/cancel-order/{{this._id}}" class="btn btn-danger " >Cancel Order</a></td>
+                  {{else}}
+                  <td></td>
+              {{/if}}
+             {{/if}}
+            
+
+       </tr>
+   
+      {{/each}}
+      
+    
+   
+  </tbody>
+</table>
+
+
+    {{#if totalpages}}
+<nav aria-label="Page navigation example ">
+  <ul class="pagination">
+ 
+    {{#times totalpages}}
+    <li class="page-item"><a class="page-link" href="/orders?page={{this}}">{{this}}</a></li>
+    {{/times}}
+   
+
+  </ul>
+</nav>
+{{/if}}
+    {{else}}
+      <h2>No Orders yet</h2>
+      {{/if}}
+  </div>
+</section>
