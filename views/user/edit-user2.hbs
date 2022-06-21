@@ -1,0 +1,73 @@
+<div class="row">
+<div class="d-flex col-md-4 " id="wrapper" style="height: 100%!important;">
+    <!-- Sidebar-->
+    <div class="border-end bg-dark" id="sidebar-wrapper" style="background-color: black:  !important;;">
+        <div class="sidebar-heading border-bottom"></div>
+        <div class="list-group list-group-flush bg-dark">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3 profile-side text-white" href="/profile" ><i class="fa-solid fa-user"></i> Profile</a>
+
+            <a class="list-group-item list-group-item-action list-group-item-secondary p-3  "
+                href="/edit-user-details">Edit Details</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3 profile-side btn btn-secondary text-white"
+                href="/address-management">Address Management</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3 profile-side btn btn-secondary text-white"
+                href="/change-password">Change Password</a>
+            <a class="list-group-item list-group-item-action list-group-item-light p-3 profile-side btn btn-secondary text-white"
+                href="/offers-coupons">Offers and Coupons</a>
+
+        </div>
+    </div>
+    </div>
+    <!-- Page content wrapper-->
+
+    <!-- Top navigation-->
+
+    <!-- Page content-->
+    <div class="row d-flex justify-content-center  w-50  col-md-6 me-5" >
+        <div class="col-md-12 px-5 me-5">
+            <div class="container mt-5 pl-5 border me-5   rounded-3">
+                <h2 class="text-center">Edit Profile</h2>
+
+                <form action="/edit-user-details" method="post" id="form">
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text" class="form-control" name="Name" id="name" value="{{userDetails.Name}}"
+                            id="name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="text" class="form-control" name="Email" value="{{userDetails.Email}}" id="email" />
+                    </div>
+                    <div class="text-center mt-4">
+                        <p id="error" class="text-danger"></p>
+                        <button type="submit" class="btn btn-dark btn-outline-secondary w-100 text-white">Edit</button><br />
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    let name = document.getElementById('name');
+    let
+        email = document.getElementById('email');
+    let form = document.getElementById('form');
+    form.addEventListener('submit', (e) => {
+                if (name.value == "" && email.value == "" && password.value == "") {
+                    document.getElementById('error').innerHTML = "enter values to edit";
+                    e.preventDefault();
+                } else if (name.value == "") {
+                    document.getElementById('error').innerHTML = "Please Enter Name";
+                    e.preventDefault();
+                } else if (email.value == "") {
+                    document.getElementById('error').innerHTML = "Please enter email ";
+                    e.preventDefault();
+                } else if (!name.value.match(/^[a-zA-Z]*$/)) {
+                    document.getElementById('error').innerHTML = "Numbers are not allowed in name
+                    field "; e.preventDefault(); } })
+</script>

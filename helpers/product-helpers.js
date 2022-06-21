@@ -156,10 +156,11 @@ module.exports={
             })
         })
     },
-    getAllCoupons:()=>{
+    getAllCoupons:(skipnum,limitnum)=>{
         return new Promise((resolve,reject)=>{
-            db.get().collection(collection.COUPON_COLLECTION).find({}).toArray().then((coupons)=>{
-               
+            db.get().collection(collection.COUPON_COLLECTION).find({}).skip(skipnum).limit(limitnum).toArray().then((coupons)=>{
+                ;console.log('its here');
+                console.log(coupons.length);
                 resolve(coupons);
             })
         })
@@ -177,6 +178,9 @@ module.exports={
                     }
                 },
                 {
+                    $sort:{Date:1}
+                },
+                {
                     $group:{_id:{$dateToString:{format:'%d-%m-%Y',date:'$Date'}},TotalRevenue:{$sum:'$TotalAmount'}}
                 }
             ]).toArray()
@@ -191,6 +195,16 @@ module.exports={
             }
             console.log(response);
             resolve(response)
+        })
+    },
+    deleteCoupon:(couponId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.COUPON_COLLECTION).updateOne({_id:ObjectId(couponId)},{$set:
+            {
+                Status:false,StartDate:"",EndDate:""
+            }}).then((result)=>{
+                resolve(result);
+            })
         })
     }
 

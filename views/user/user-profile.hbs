@@ -1,48 +1,73 @@
-
-    <div class="d-flex" id="wrapper">
+<div class="row">
+    <div class=" col-md-2" id="wrapper">
         <!-- Sidebar-->
-        <div class="border-end bg-white" id="sidebar-wrapper">
-            <div class="sidebar-heading border-bottom bg-light"></div>
-            <div class="list-group list-group-flush">
-              
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/edit-user-details">Edit Details</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/address-management">Address Management</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/change-password">Change Password</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/offers-coupons">Offers and Coupons</a>
-               
-              
+        <div class="border-end bg-dark " id="sidebar-wrapper" style="background-color: black:  !important;;">
+            <div class="sidebar-heading border-bottom "></div>
+            <div class="list-group list-group-flush bg-dark">
+
+                <a class="list-group-item list-group-item-action list-group-item-light p-3 profile-side text-white"
+                    href="/profile"><i class="fa-solid fa-user"></i> Profile</a>
+
+                <a class="list-group-item list-group-item-action list-group-item-light p-3 profile-side text-white"
+                    href="/edit-user-details">Edit Details</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3 profile-side text-white"
+                    href="/address-management">Address Management</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3 profile-side text-white"
+                    href="/change-password">Change Password</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3 profile-side text-white"
+                    href="/offers-coupons">Offers and Coupons</a>
+
+
             </div>
         </div>
         <!-- Page content wrapper-->
-       
-            <!-- Top navigation-->
-          
-            <!-- Page content-->
-            <div class="container-fluid mx-5 mt-5">
-                <div class="text-align-center">
-                    <p> Name :<span>{{userProfile.Name}}</span></p>
-                     <p>Email :<span>{{userProfile.Email}}</span></p><br>
-                    <label for="">Referal link :</label>
-                    <input type="text" value="localhost:3000/signup?referal={{user._id}}" disabled class="w-50" id="referallink"><button onclick="copyLink()">get link</button>
-                    <span id="msg"></span><br><br>
-                    {{#if user.Wallet}}
-                    <label for="">Wallet Amount Remaining : </label><span>&nbsp;&#8377;{{userProfile.Wallet}}</span>
-                    
-                    {{/if}}
-                </div>
-                   
-            </div>
-        
+
+        <!-- Top navigation-->
+
+        <!-- Page content-->
+
+
     </div>
 
-    <script>
-        function copyLink(){
-          
-            let referallink=document.getElementById('referallink');
-            referallink.select();
-            referallink.setSelectionRange(0, 99999); /* For mobile devices */
-            navigator.clipboard.writeText(referallink.value);
-            /*document.getElementById('msg').innerHTML='copied referal link'*/
-           
-        }
-    </script>
+    <div class=" mt-3 col-md-10">
+        <div class="row">
+            <div class="col-md-4">
+                
+                <div class="row ms-5">
+                    <div class="col-md-12 "> <img  src="https://unavatar.now.sh/twitter/twocngdagz" alt="" style="max-height: 50%;"><br>
+                   <strong class="ms-5 mt-2"> {{userProfile.Name}}</strong><br>
+                    <strong class="ms-2 mt-2"> {{userProfile.Email}}</strong>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-8 mt-5">
+               
+                   
+                   
+                    <label for="">Referal link :</label>
+                    <input type="text" value="localhost:3000/signup?referal={{user._id}}" disabled class="w-50"
+                        id="referallink"><button onclick="copyLink()">get link</button>
+                    <span id="msg"></span><br><br>
+                    {{#if userProfile.Wallet}}
+                    <label for="">Wallet Amount Remaining : </label><span>&nbsp;&#8377;{{userProfile.Wallet}}</span>
+
+                    {{/if}}
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<script>
+    function copyLink() {
+
+        let referallink = document.getElementById('referallink');
+        referallink.select();
+        referallink.setSelectionRange(0, 99999); /* For mobile devices */
+        navigator.clipboard.writeText(referallink.value);
+        /*document.getElementById('msg').innerHTML='copied referal link'*/
+
+    }
+</script>

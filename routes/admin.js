@@ -11,7 +11,7 @@ const async = require('hbs/lib/async');
 
 
 const verifyLogin=(req,res,next)=>{
-  if(req.session.loggedIn){
+  if(req.session.admin){
     next();
   }else{
     res.redirect('/admin');
@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
    if(req.body.Email=="admin@gmail.com"&&req.body.Password=="aaa"){
     req.session.user="admin";
-    req.session.loggedIn=true;
+    req.session.admin=true;
     res.redirect('admin/adminhome');
    }else{
     req.session.message="invalid email or password";
@@ -166,7 +166,7 @@ router.get('/delivered-order/:orderId',(req,res)=>{
 })
 
 router.get('/add-category',(req,res)=>{
-  res.render('admin/add-category');
+  res.render('admin/add-category',{admin:true});
 })
 
 router.post('/add-category',(req,res)=>{
@@ -241,6 +241,32 @@ router.post('/sales-report',async(req,res)=>{
 
 })
 
+router.get('/coupons',async(req,res)=>{
+  let result=await productHelpers.getAllCoupons(0,0);
+  let totalCoupons=result.length;
+  console.log('tatal coupons='+totalCoupons);
+  let perPage=6;
+  let totalpages=Math.ceil(totalCoupons/perPage);
+  let pageNumber=req.query.page?req.query.page:1;
+  let startFrom=(pageNumber-1)*perPage;
+  let coupons=await productHelpers.getAllCoupons(startFrom,perPage);
+  let startIndex=perPage*(pageNumber-1);
+  res.render('admin/coupons',{coupons,admin:true,totalpages,startIndex})
+})
+
+router.get('/delete-coupon/:couponId',async(req,res)=>{
+  console.log('reached here');
+  let status=await productHelpers.dnpmeleteCoupon(req.params.couponId);
+  res.json(status);
+})
+
+router.get('/view-order-details/:orderId',async(req,res)=>{
+  let order=await userHelpers.viewOrderedItems(req.params.orderId);
+  console.log(order);
+  let user=await userHelpers.getUser(order.User);
+  console.log(user);
+  res.render('admin/view-order-details',{admin:true,items:order,user:user[0]})
+})
 
 
 

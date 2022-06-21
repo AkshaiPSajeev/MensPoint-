@@ -1,21 +1,124 @@
-<div class="container mt-5 mx-auto">
-  
-  {{#each items.Products}}
-    <div class="row d-flex">
-      <div class="card text-center" style="width: 18rem;">
-        <img class="card-img-top" src="/product-images/{{this._id}}.jpg" alt="Card image cap">
-        <div class="card-body">
-         <h5 class="card-title">{{this.Name}}</h5>
+<div class="container  rounded-3 mt-5 p-5" style="background-color: rgb(251 250 250);">
+  <div class="row">
+    <div class="col-md-6"><p> Order Id : {{items._id}}</p>
+    <p>Name : {{user.Name}}</p>
+     </div>
+    <div class="col-md-6">
+    
+     <input type="text" value="{{path}}"  id="pdfpath" hidden>
+      {{!-- <button class="btn btn-dark  text-white " onclick="downloadPdf()">Download
+        Receipt</button> --}}
+          <button type="button" class="btn btn-dark  text-white "  onclick="DownloadFile('{{items._id}}')" ><i class="fa-solid fa-download"></i>Download Receipt</button>
+
+    </div>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-1">Address:</div>
+        <div class="col-md-4">
+          {{items.Address.HouseName}}<br>
+          {{items.Address.Street}}
+        </div>
+      </div>
+     
+    </div>
+    <div class="col-md-12">
+     
+      <span>PaymentMode :</span>
+      {{#if items.PaymentMode.COD}}
+      <span>COD</span>
+      {{else}}
+      {{#if items.PaymentMode.Razorpay}}
+      <span>Razorpay</span>
+      {{else}}
+      {{#if items.PaymentMode.Paypal}}
+      <span>Paypal</span>
+      {{else}}
+      <span>Wallet</span>
+      {{/if}}
+      {{/if}}
+      {{/if}}
+      <br>
+      <span>Status &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : </span>
+      {{#if items.Status.placed}}
+      <span>Placed</span>
+      {{else}}
+      {{#if items.Status.dispatched}}
+      <span>Dispatched</span>
+      {{else}}
+      {{#if items.Status.delivered}}
+      <span>Delivered</span>
+      {{else}}
+      {{#if items.Status.cancelled}}
+      <span>Cancelled</span>
+      {{/if}}
+      {{/if}}
+      {{/if}}
+      {{/if}}
+    </div>
+  </div>
+  <div class="row mt-5">
+    {{#each items.Products}}
+    <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-3 mb-2">
+        <img src="/product-images/{{this._id}}.jpg" alt="..." class="img-thumbnail">
+      </div>
+      <div class="col-md-9">
+        <h4>{{this.Name}}</h4><br>
+        <strong>Quantity:{{this.quantity}}</strong><br>
         {{#if this.Offer.Status}}
-          <span><strong>Price: &#8377;{{this.DiscountedPrice}}</strong></span><br>
-          <span class="text-success"><strong>{{this.Offer.Value}}% Discount Added</strong></span>
-          {{else}}
-          <p><strong>Price: &#8377;{{this.Price}}</strong></p>
-        {{/if}}
+                 
+                  {{!-- <h5> &#8377; {{getFinalValue this.Price this.Offer.Value}}</h5> --}}
+                  <span style="color: #7e837f;"><strong><s>Price :&#8377;{{this.Price}}</s></strong></span> &nbsp;
+                  <span style="color: #41a65a;"><strong>{{this.Offer.Value}}% Off</strong></span> <br>
+                  <span style="color: #7e837f;"><strong>Price :&#8377; {{this.DiscountedPrice }}</strong> </span>
+                {{else}}
+                 <span> &#8377; {{this.Price}}<span>
+              {{/if}}
+        
       </div>
     </div>
-   
-      
     </div>
-  {{/each}}
+    {{/each}}
+  </div>
+  <div class="row mt-5 ">
+    <div class="col-md-7 d-flex justify-content-center">
+      <h4>Total:&#8377;{{items.TotalAmount}}</h4>
+
+    </div>
+  </div>
 </div>
+
+ <script type="text/javascript">
+        function DownloadFile(fileName) {
+            //Set the File URL.
+            fileName+='.pdf'
+            let path=document.getElementById('pdfpath').value;
+            var url = "receipts/" + fileName;
+ 
+            //Create XMLHTTP Request.
+            var req = new XMLHttpRequest();
+            req.open("GET", url);
+            req.responseType = "blob";
+            req.onload = function () {
+                //Convert the Byte Data to BLOB object.
+                var blob = new Blob([req.response], { type: "application/octetstream" });
+ 
+                //Check the Browser type and download the File.
+                var isIE = false || !!document.documentMode;
+                if (isIE) {
+                    window.navigator.msSaveBlob(blob, fileName);
+                } else {
+                    var url = window.URL || window.webkitURL;
+                    link = url.createObjectURL(blob);
+                    var a = document.createElement("a");
+                    a.setAttribute("download", fileName);
+                    a.setAttribute("href", link);
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            };
+            req.send();
+        };
+    </script>

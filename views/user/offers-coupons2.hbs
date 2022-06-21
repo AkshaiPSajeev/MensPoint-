@@ -1,0 +1,42 @@
+ <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="border-end bg-dark " id="sidebar-wrapper" style="background-color: black:  !important;;">
+            <div class="sidebar-heading border-bottom "></div>
+            <div class="list-group list-group-flush bg-dark">
+                
+                <a class="list-group-item list-group-item-action list-group-item-light p-3 profile-side text-white" href="/profile" ><i class="fa-solid fa-user"></i> Profile</a>
+              
+                <a class="list-group-item list-group-item-action list-group-item-light p-3 profile-side text-white" href="/edit-user-details" >Edit Details</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3 profile-side text-white" href="/address-management">Address Management</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3 profile-side text-white" href="/change-password">Change Password</a>
+                <a class="list-group-item list-group-item-action list-group-item-secondary p-3 " href="/offers-coupons">Offers and Coupons</a>
+               
+              
+            </div>
+        </div>
+        <!-- Page content wrapper-->
+       
+            <!-- Top navigation-->
+          
+            <!-- Page content-->
+            <div class="container">
+    <div class="row">
+          {{#each coupons}}
+      <div class="col-md-3 pt-5">
+      
+        <div class="card text-white bg-primary mb-3" style="max-width: 18rem; height:14rem;">
+         
+          <div class="card-body text-center">
+            <h2 class="card-title">Flat {{this.OfferValue}}% off</h2>
+            <p class="card-text">Use the coupon code to avail {{this.OfferValue}}% off on your next purchase</p>
+            <h5>Code : {{this.CouponCode}}</h5>
+          </div>
+        </div>
+       
+      </div>
+       {{/each}}
+    </div>
+  </div>
+    
+        
+    </div>

@@ -208,8 +208,10 @@ module.exports ={
     generateInvoiceTable(doc, invoice);
     //generateFooter(doc);
   
-    doc.end();
+ 
     doc.pipe(fs.createWriteStream(path.join(__dirname+'../../invoices/'+documentName)));
+    doc.pipe(fs.createWriteStream(path.join(__dirname+'../../receipts/'+documentName)));
+    doc.end();
   }
 }
 

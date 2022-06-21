@@ -28,22 +28,23 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
             userData.Password=await bcrypt.hash(userData.Password,10);
             userData.Status=true;
-            if(userData.referal){
-                let user=await db.get().collection(collection.USER_COLLECTION).find({_id:ObjectId(userData.referal)},{Wallet:1}).toArray();
-                console.log(user[0].Wallet);
-                if(user[0].Wallet){
+            userData.Wallet=0;
+            //if(userData.referal){
+                //let user=await db.get().collection(collection.USER_COLLECTION).find({_id:ObjectId(userData.referal)},{Wallet:1}).toArray();
+               // console.log(user[0].Wallet);
+               // if(user[0].Wallet){
                     await db.get().collection(collection.USER_COLLECTION).updateOne({_id:ObjectId(userData.referal)},
                     
                         {$inc:{Wallet:100}}
                     )
-                }else{
-                    await db.get().collection(collection.USER_COLLECTION).updateOne({_id:ObjectId(userData.referal)},
+               // }/*else{
+                   /* await db.get().collection(collection.USER_COLLECTION).updateOne({_id:ObjectId(userData.referal)},
                     [{
                         $addFields:{"Wallet":{$toInt:100}}
                     }])
-                }
-            }
-            db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((data)=>{
+               // }*/
+            //}
+            await db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((data)=>{
                 resolve(data.insertedId.toString())
             });
         })
@@ -554,7 +555,8 @@ module.exports={
             let PaymentMode={
                 COD:false,
                 Razorpay:false,
-                Paypal:false
+                Paypal:false,
+                Wallet:false
             }
             if(orderRequest.PaymentMode==="COD"){
                 PaymentStatus=false;
@@ -569,6 +571,7 @@ module.exports={
             if(orderRequest.couponId){
                 let coupon=await db.get().collection(collection.COUPON_COLLECTION).findOne({_id:ObjectId(orderRequest.couponId)});
                 TotalAmount=(100-coupon.OfferValue)*TotalAmount/100;
+             
                 let userusedcoupons=await db.get().collection(collection.USED_COUPON_COLLECTION).findOne({user:ObjectId(userId)});
                 if(userusedcoupons){
                     await db.get().collection(collection.USED_COUPON_COLLECTION).updateOne({user:ObjectId(userId)},
@@ -586,6 +589,30 @@ module.exports={
                 }
         
             }
+            let amounttopay=null;
+            let wallet_amount_added=null;
+            if(orderRequest.PaymentMode==='Wallet'){
+                PaymentMode.Wallet=true;
+                PaymentStatus=false;
+                wallet_amount_added=TotalAmount;
+                amounttopay=0;
+                await db.get().collection(collection.USER_COLLECTION).updateOne({_id:ObjectId(userId)},
+                {
+                    $inc:{Wallet:-TotalAmount}
+                })
+            }else{
+                console.log('other conditions');
+                let user=await db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(userId)});
+                let userwallet=user.Wallet;
+                if(userwallet<TotalAmount){
+                    amounttopay=TotalAmount-userwallet;
+                    wallet_amount_added=userwallet;
+                }
+                await db.get().collection(collection.USER_COLLECTION).updateOne({_id:ObjectId(userId)},
+                {
+                    $inc:{Wallet:-userwallet}
+                })
+            }
             let order={
                 User:ObjectId(userId),
                 Address:addressObj,
@@ -593,6 +620,8 @@ module.exports={
                 TotalAmount:TotalAmount,
                 PaymentMode:PaymentMode,
                 PaymentStatus:PaymentStatus,
+                WalletAmountAdded:wallet_amount_added,
+                AmountToPay:amounttopay,
                 Status:{
                     placed:true,
                     dispatched:false,
@@ -963,6 +992,29 @@ module.exports={
             }
         
             resolve(salesReport);
+
+        })
+    },
+    getUserWallet:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+
+           let result=await db.get().collection(collection.USER_COLLECTION).aggregate([
+               {
+                   $match:{_id:ObjectId(userId)}
+               },
+               {
+                   $project:{_id:0,Wallet:1}
+               }
+           ]).toArray();
+           if(Object.keys(result[0]).length==0){
+             
+               
+                resolve(0)
+           }else{
+            
+               resolve(result[0].Wallet);
+           }
+         
 
         })
     }

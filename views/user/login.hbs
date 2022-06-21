@@ -1,6 +1,6 @@
-<div class="row">
-    <div class="col-md-4 m-auto">
-        <div class="container mt-5 pl-5 border shadow">
+<div class="row mt-5">
+    <div class="col-md-4 m-auto mt-5">
+        <div class="container mt-5 pl-5 border rounded-3" style="background-color:  rgba(0, 0, 0, 0.2);">
             <h2 class="text-center">Login</h2>
                {{#if logerror}}
                <div class="text-center"><p class="text-danger"> {{logerror}}</p> </div>
@@ -17,8 +17,8 @@
                 </div>
                 <div class="text-center mt-4">
                     <p id="error" class="text-danger"></p>
-                     <button type="submit" class="btn btn-success w-100">Login</button><br>
-                    <a href="/signup"  class="link-primary"  style="text-decoration:none;">Create a new account ?</a>
+                     <button type="submit" class="btn btn-dark btn-outline-secondary text-white w-100 mb-2">Login</button><br>
+                    <a href="/signup"  class="link-dark "  style="text-decoration:none; font-weight:600;">Create a new account ?</a>
                  
                
                 </div>

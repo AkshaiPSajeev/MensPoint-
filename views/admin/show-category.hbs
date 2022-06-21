@@ -3,7 +3,7 @@
         <div class="row ">
             <a href="/admin/add-category" ><button class="btn btn-success mx-5 mt-4"><i class="fa-solid fa-plus m-2"></i>Add Category</button> </a>
         </div>
-        <table class="table mt-4  table-hover text-center .table-responsive">
+        <table class="table mt-4  table-bordered text-center .table-responsive">
   <thead>
     <tr>
       <th scope="col">No</th>
@@ -23,7 +23,8 @@
       <td>{{this.Total}}</td>
       {{#if this.Offer.Status}}
       <td>{{this.Offer.Value}}% Offer added</td>
-      <td><a href="/admin/withdraw-offer/{{this.CategoryName}}" class="btn btn-danger">Withdraw offer</a></td>
+      {{!-- <td><a href="/admin/withdraw-offer/{{this.CategoryName}}" class="btn btn-danger">Withdraw offer</a></td> --}}
+      <td><button class="btn btn-danger" onclick="withdrawCategoryOffer('{{this.CategoryName}}')">Withdraw Offer</button></td>
       {{else}}
        <td>No Offer Added</td>
        <td><a href="/admin/add-offer/{{this.CategoryName}}" class="btn btn-primary">Add Offer</a></td>
@@ -39,3 +40,30 @@
 </table>
     </div>
 </section>
+<script>
+  function withdrawCategoryOffer(category){
+    swal({
+  title: "Are you sure?",
+  text: "You want to withdraw offer?",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    window.location.href="/admin/withdraw-offer/"+category;
+    setTimeout(()=>{
+     swal("Offer withdrawn successfully", {
+      icon: "success",
+      
+    })
+    },10000)
+   
+   
+  } /*else {
+    swal("Your imaginary file is safe!");
+  }*/
+});
+  }
+</script>
+

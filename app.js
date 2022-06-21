@@ -74,6 +74,16 @@ helpers:{
   placedOrDispatched(s1,s2){
   
     return s1||s2;
+  },
+  calculateWallet(wallet,orderTotal){
+    if(wallet>=orderTotal){
+      return wallet-orderTotal;
+    }else{
+      return 0;
+    }
+  },
+  calculateAmountToPay(wallet,orderTotal){
+    return orderTotal-wallet;
   }
 }})); 
 app.use(logger('dev'));

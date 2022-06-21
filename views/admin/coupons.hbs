@@ -1,0 +1,59 @@
+<section class="mx-5">
+    <div class="container ">
+        <div class="row ">
+            <a href="/admin/add-coupon" ><button class="btn btn-success mx-5 mt-4"><i class="fa-solid fa-plus m-2"></i>Add Coupon</button> </a>
+        </div>
+        <table class="table mt-4  table-bordered text-center .table-responsive">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Coupon Code</th>
+      <th scope="col" >Start Date</th>
+      <th scope="col">End Date</th>
+      <th scope="col">Status</th>
+      {{!-- <th scope="col">Update</th> --}}
+      <th scope="col">Delete</th>
+      {{!-- <th scope="col">Show History</th> --}}
+      
+    </tr>
+  </thead>
+  <tbody>
+      {{#each coupons}}
+    <tr>
+      <th scope="row">{{counterPagination ../startIndex @index}} </th>
+      <td>{{this.CouponCode}}</td>
+      <td>{{this.StartDate}}</td>
+      <td>{{this.EndDate}}</td>
+      <td>{{this.Status}}</td>
+      {{!-- <td> <a href="" class="btn btn-primary">Update</a></td> --}}
+       <td>  <button class="btn btn-danger" onclick="deleteCoupon('{{this._id}}')">
+      <i class="fa-solid fa-trash-can"></i>
+        
+        </button></td> 
+        {{!-- <td><button class=" btn btn-danger" onclick="test()">test</button></td> --}}
+      {{!-- <td><a href="" class="btn btn-primary">Show History</a></td> --}}
+       
+     
+        
+      
+    </tr>
+    {{/each}}
+    
+  </tbody>
+</table>
+     {{#if totalpages}}
+      <nav aria-label="Page navigation example ">
+       <ul class="pagination">
+         {{#times totalpages}}
+         <li class="page-item"><a class="page-link" href="/admin/coupons?page={{this}}">{{this}}</a></li>
+         {{/times}}
+         </ul>
+         </nav>
+      {{/if}}
+    </div>
+</section>
+{{!-- 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    
+</script> --}}

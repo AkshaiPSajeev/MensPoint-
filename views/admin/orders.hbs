@@ -1,125 +1,139 @@
 <section>
   <div class="container-fluid col-md-12 col-sm-12">
-  {{#if orders}}
-   <table class="table mt-4 table-bordered text-align-center">
+    {{#if orders}}
+    <table class="table mt-4 table-bordered text-align-center">
       <thead>
         <tr>
           <th scope="col">No</th>
-          <th scope="col">Ordered By</th>
-          <th scope="col">Ordered Items</th>
+
+
           <th scope="col">Delivery Address</th>
-          
-           <th scope="col">Total Amount</th>
+
+          <th scope="col">Total Amount</th>
           <th scope="col">Payment Mode</th>
           <th scope="col">Payment Status</th>
-          <th scope="col">Action</th>
           <th scope="col">Order Status</th>
+          <th scope="col">Action</th>
 
-    
-          
+
+
 
         </tr>
       </thead>
       <tbody>
         {{#each orders}}
-          <tr>
-            <th scope="row">{{counterPagination ../startIndex @index}} </th>
-            <td >
-              <div class="text-center">
-                 {{#each this.userDetails}}
-                <span>{{this.Name}}</span><br>
-                <span>{{this.Email}}</span><br>
-                {{/each}}
+        <tr>
+          <th scope="row">{{counterPagination ../startIndex @index}} </th>
+
+
+          <td>
+            <div class="containe mx-auto">
+
+
+              <span>{{this.Address.HouseName}}</span><br>
+              <span>{{this.Address.Street}}</span><br>
+              <span>{{this.Address.City}}</span><br>
+              <span>{{this.Address.State}}</span><br>
+              <span>{{this.Address.Pin}}</span><br>
+
+
+            </div>
+          </td>
+
+
+          <td>{{this.TotalAmount}}</td>
+
+          {{#if this.PaymentMode.COD}}
+          <td><span>Cash On Delivery</span></td>
+          {{else}}
+          {{#if this.PaymentMode.Razorpay}}
+          <td><span>Razorpay</span></td>
+          {{else}}
+          {{#if this.PaymentMode.Paypal}}
+          <td><span>Paypal</span></td>
+          {{else}}
+          <td><span>Wallet</span></td>
+          {{/if}}
+          {{/if}}
+          {{/if}}
+
+          {{#if this.PaymentStatus}}
+          <td>Complete</td>
+          {{else}}
+          <td>incomplete</td>
+          {{/if}}
+
+
+
+          {{#if this.Status.placed}}
+          <td>waiting for approval</td>
+          <td>
+            {{!-- <a href="" class="btn btn-primary">Details</a><br>
+                  <a class="btn btn-primary " href="/admin/dispatch-order/{{this._id}}">Dispatch</a>  --}}
+            <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select Action
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/admin/dispatch-order/{{this._id}}">Dispatch</a>
+                <a class="dropdown-item" href="/admin/view-order-details/{{this._id}}">View Details</a>
 
               </div>
-               
-            </td>
-            <td>{{#each this.Products}}   
+            </div>
+          </td>
+          {{/if}}
+          {{#if this.Status.dispatched}}
+           <td>dispatched and on the way</td>
+            {{!-- <td> <a href="/admin/delivered-order/{{this._id}}" class="btn btn-primary">Complete</a></td> --}}
+          <td><div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Select Action
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/admin/delivered-order/{{this._id}}">Completed Order</a>
+              <a class="dropdown-item" href="/admin/view-order-details/{{this._id}}">View Details</a>
+             
+            </div>
+          </div></td>
+          {{/if}}
+          {{#if this.Status.delivered}}
+          <td>delivered successfully</td>
+          <td> <a href="/admin/view-order-details/{{this._id}}" class="btn btn-primary">View Details</a><br></td>
 
-                    
-                      <span>{{this.Name}}</span>
-                      <span>{{this.Category}}</span><br>
-                      
-                 
-              {{/each}}
-            </td>
-            <td><div class="containe mx-auto">
-            
-                     
-                      <span >{{this.Address.HouseName}}</span><br>
-                       <span>{{this.Address.Street}}</span><br>
-                      <span >{{this.Address.City}}</span><br>
-                       <span >{{this.Address.State}}</span><br>
-                        <span >{{this.Address.Pin}}</span><br>
-                    
-                    
-                </div></td>
-          
-             
-             <td>{{this.TotalAmount}}</td>
-             
-                 {{#if this.PaymentMode.COD}}
-                 <td><span>Cash On Delivery</span></td>
-                   {{else}}
-                      {{#if this.PaymentMode.Razorpay}}
-                       <td><span>Razorpay</span></td>
-                        {{else}}
-                           <td><span>Paypal</span></td>
-                      {{/if}}
-                   {{/if}} 
-                     
-                   {{#if this.PaymentStatus}}
-                         <td><span class="text-success"><strong>Complete</strong> </span></td>
-                   {{else}}
-                      <td><span class="text-danger"><strong>incomplete</strong> </span></td>
-                   {{/if}}
-                 
-            
-             
-               {{#if this.Status.placed}}
-                <td>
-                 <div class="">
-                <a class="btn btn-success " href="/admin/dispatch-order/{{this._id}}">Dispatch</a><br>
-               
-                 </div>
-                
-             </td>
-                  <td><span class="text-success"><strong>waiting for admin approval</strong> </span></td>
-               {{/if}}
-               {{#if this.Status.dispatched}}
-                  <td> <a href="/admin/delivered-order/{{this._id}}" class="btn btn-primary">Order Complete</a></td>
-                  <td><span style="color:blue;"><strong>Order dispatched and on the way</strong> </span></td>
-               {{/if}}
-                {{#if this.Status.delivered}}
-                    <td><button class="btn btn-success">View Review</button></td>
-                  <td><span style="color:green;"><strong>Order delivered successfully</strong></span></td>
-               {{/if}}
-             
-            
-              
-            
-            
-           
+          {{/if}}
+          {{#if this.Status.cancelled}}
+          <td>Cancelled</td>
+          <td> <a href="/admin/view-order-details/{{this._id}}" class="btn btn-primary">View Details</a><br></td>
 
-          </tr>
+          {{/if}}
+
+
+
+
+
+
+
+        </tr>
         {{/each}}
 
       </tbody>
     </table>
-     {{#if totalpages}}
-<nav aria-label="Page navigation example ">
-  <ul class="pagination">
- 
-    {{#times totalpages}}
-    <li class="page-item"><a class="page-link" href="/admin/orders?page={{this}}">{{this}}</a></li>
-    {{/times}}
-   
+    {{#if totalpages}}
+    <nav aria-label="Page navigation example ">
+      <ul class="pagination">
 
-  </ul>
-</nav>
-{{/if}}
+        {{#times totalpages}}
+        <li class="page-item"><a class="page-link" href="/admin/orders?page={{this}}">{{this}}</a></li>
+        {{/times}}
+
+
+      </ul>
+    </nav>
+    {{/if}}
     {{else}}
     <h2>No orders yet</h2>
-      {{/if }}
+    {{/if }}
   </div>
 </section>

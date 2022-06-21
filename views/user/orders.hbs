@@ -93,7 +93,11 @@
               {{#if this.PaymentMode.Razorpay}}
                 <td>Razorpay</td>
                 {{else}}
+                {{#if this.PaymentMode.Wallet}}
+                 <td>Wallet</td>
+                 {{else}}
                  <td>Paypal</td>
+                 {{/if}}
               {{/if}}
             
             {{/if}}
@@ -110,7 +114,7 @@
             <td>Placed</td>
             {{/if}}
            
-            <td><a href="/view-orderitems?orderId={{this._id}}" class="btn btn-success">View items</a></td>
+            <td><a href="/view-orderitems?orderId={{this._id}}" class="btn btn-primary">View Details</a></td>
          
              {{!-- <td> <a href="/cancel-order/{{this._id}}" class="btn btn-danger " >Cancel Order</a></td> --}}
             {{#if this.Status.placed}}

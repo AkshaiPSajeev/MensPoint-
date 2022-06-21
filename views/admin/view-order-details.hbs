@@ -1,0 +1,96 @@
+<div class="container  rounded-3 mt-5 p-5" style="">
+  <div class="row">
+    <div class="col-md-6"><p> Order Id : {{items._id}}</p>
+    <span>Ordered By : {{user.Name}}</span><br>
+    <span>Email :{{user.Email}}</span>
+     </div>
+    <div class="col-md-6">
+    
+    {{#if items.Status.placed}}
+    <a href="/admin/dispatch-order/{{items._id}}" class="btn btn-primary">Dispatch</a>
+        {{/if}}
+          
+    {{#if items.Status.dispatched}}
+    <a href="/admin/delivered-order/{{items._id}}" class="btn btn-primary">Complete</a>
+    {{/if}}
+          
+
+    </div>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-1">Address:</div>
+        <div class="col-md-4">
+          {{items.Address.HouseName}}<br>
+          {{items.Address.Street}}
+        </div>
+      </div>
+     
+    </div>
+    <div class="col-md-12">
+     
+      <span>PaymentMode :</span>
+      {{#if items.PaymentMode.COD}}
+      <span>COD</span>
+      {{else}}
+      {{#if items.PaymentMode.Razorpay}}
+      <span>Razorpay</span>
+      {{else}}
+      {{#if items.PaymentMode.Paypal}}
+      <span>Paypal</span>
+      {{else}}
+      <span>Wallet</span>
+      {{/if}}
+      {{/if}}
+      {{/if}}
+      <br>
+      <span>Status &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : </span>
+      {{#if items.Status.placed}}
+      <span>Placed</span>
+      {{else}}
+      {{#if items.Status.dispatched}}
+      <span>Dispatched</span>
+      {{else}}
+      {{#if items.Status.delivered}}
+      <span>Delivered</span>
+      {{else}}
+      {{#if items.Status.cancelled}}
+      <span>Cancelled</span>
+      {{/if}}
+      {{/if}}
+      {{/if}}
+      {{/if}}
+    </div>
+  </div>
+  <div class="row mt-5">
+    {{#each items.Products}}
+    <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-3 mb-2">
+        <img src="/product-images/{{this._id}}.jpg" alt="..." class="img-thumbnail">
+      </div>
+      <div class="col-md-9">
+        <h4>{{this.Name}}</h4><br>
+        <strong>Quantity:{{this.quantity}}</strong><br>
+        {{#if this.Offer.Status}}
+                 
+                  {{!-- <h5> &#8377; {{getFinalValue this.Price this.Offer.Value}}</h5> --}}
+                  <span style="color: #7e837f;"><strong><s>Price :&#8377;{{this.Price}}</s></strong></span> &nbsp;
+                  <span style="color: #41a65a;"><strong>{{this.Offer.Value}}% Off</strong></span> <br>
+                  <span style="color: #7e837f;"><strong>Price :&#8377; {{this.DiscountedPrice }}</strong> </span>
+                {{else}}
+                 <span> &#8377; {{this.Price}}<span>
+              {{/if}}
+        
+      </div>
+    </div>
+    </div>
+    {{/each}}
+  </div>
+  <div class="row mt-5 ">
+    <div class="col-md-7 d-flex justify-content-center">
+      <h4>Total:&#8377;{{items.TotalAmount}}</h4>
+
+    </div>
+  </div>
+</div>
+

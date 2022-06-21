@@ -89,14 +89,14 @@
        <tr>
         
       <th scope="row">{{counter @index}}</th>
-      <td><span id="{{this._id}}ProductNameSummary">{{this.Name}}</span></td>
-       <td><span id="{{this._id}}QuantitySummary">{{this.Quantity}}</span></td>
+      <td><span id="{{this._id}}"+"ProductNameSummary">{{this.Name}}</span></td>
+       <td><span id="{{this._id}}"+"QuantitySummary">{{this.Quantity}}</span></td>
       {{#if this.Offer.Status}}
-      <td><span id="{{this._id}}ProductPriceSummary">{{this.DiscountedPrice}}</span></td>
-        <td><span id="{{this._id}}TotalPriceSummary">{{this.TotalProductPrice}}</span></td>
+      <td><span id="{{this._id}}"+"ProductPriceSummary">{{this.DiscountedPrice}}</span></td>
+        <td><span id="{{this._id}}"+"TotalPriceSummary">{{this.TotalProductPrice}}</span></td>
       {{else}}
-        <td><span id="{{this._id}}ProductPriceSummary">{{this.Price}}</span></td>
-          <td><span id="{{this.product._id}}TotalPriceSummary">{{this.TotalProductPrice}}</span></td>
+        <td><span id="{{this._id}}"+"ProductPriceSummary">{{this.Price}}</span></td>
+          <td><span id="{{this.product._id}}"+"TotalPriceSummary">{{this.TotalProductPrice}}</span></td>
       {{/if}}
       
      
@@ -124,6 +124,5 @@
   </div>
   {{/if}}
 </section>
-<script>
-
-</script>
+ {{!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js">  </script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> --}}
