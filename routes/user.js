@@ -14,7 +14,7 @@ const path=require('path')
 /* GET home page. */
   
 const verifyLogin=(req,res,next)=>{
-  if(req.session.loggedIn){
+  if(req.session.userloggedIn){
     next();
   }else{
     res.redirect('/login');
@@ -49,7 +49,7 @@ router.post('/login',(req,res)=>{
         req.session.logerror="Your account is blocked";
       res.redirect('/login');
       }else{
-        req.session.loggedIn=true;
+        req.session.userloggedIn=true;
         req.session.user=response.user;
         var cartcount=null;
         if(req.session.user){
@@ -83,10 +83,7 @@ router.post('/signup',(req,res)=>{
   })
 });
 
-router.get('/logout',(req,res)=>{
-  req.session.destroy();
-  res.redirect('/');
-});
+
 
 router.get('/cart',verifyLogin,async(req,res)=>{
   let products= await userHelpers.getCartProducts(req.session.user._id);
@@ -379,4 +376,9 @@ router.get('/view-orderitems',verifyLogin,(req,res)=>{
   })
   
 })
+
+router.get('/logout',(req,res)=>{
+  req.session.destroy();
+  res.redirect('/');
+});
 module.exports = router;

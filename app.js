@@ -8,6 +8,7 @@ var fileupload=require('express-fileupload');
 var db=require('./config/connection');
 var session=require('express-session');
 const {v4:uuidv4}=require("uuid");
+require('dotenv').config();
 
 
 

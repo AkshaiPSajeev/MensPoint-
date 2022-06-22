@@ -1,4 +1,4 @@
 module.exports={
-    email:"menspointfashions@gmail.com",
-    password:"kowwxfdmipnuehuk"
+    email:process.env.MENSPOINT_EMAIL,
+    password:process.env.MENSPOINT_EMAIL_PASSWORD
 }

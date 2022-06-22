@@ -19,7 +19,7 @@ const verifyLogin=(req,res,next)=>{
 }
 
 router.get('/', function(req, res, next) {
- if(req.session.user){
+ if(req.session.admin){
     res.redirect('/admin/adminhome')
   }else{
     message=req.session.message;
@@ -29,8 +29,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-   if(req.body.Email=="admin@gmail.com"&&req.body.Password=="aaa"){
-    req.session.user="admin";
+   if(req.body.Email==process.env.ADMIN_EMAIL&&req.body.Password==process.env.ADMIN_PASSWORD){
+    //req.session.user="admin";
     req.session.admin=true;
     res.redirect('admin/adminhome');
    }else{
@@ -271,7 +271,7 @@ router.get('/view-order-details/:orderId',async(req,res)=>{
 
 
 router.get('/logout',(req,res)=>{
-  req.session.destroy();
+  req.session.admin.destroy();
   res.redirect('/admin');
 });
 
