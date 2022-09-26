@@ -6,10 +6,9 @@
     <div class="col-md-6">
     
      <input type="text" value="{{path}}"  id="pdfpath" hidden>
-      {{!-- <button class="btn btn-dark  text-white " onclick="downloadPdf()">Download
-        Receipt</button> --}}
-          <button type="button" class="btn btn-dark  text-white "  onclick="DownloadFile('{{items._id}}')" ><i class="fa-solid fa-download"></i>Download Receipt</button>
-
+  
+          {{!-- <button type="button" class="btn btn-dark  text-white "  onclick="DownloadFile('{{items._id}}')" ><i class="fa-solid fa-download"></i>Download Receipt</button> --}}
+          <a href="" download="receipt" class="btn btn-dark  text-white ">Download receipt</a>
     </div>
     <div class="col-md-12">
       <div class="row">
