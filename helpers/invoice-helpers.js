@@ -201,7 +201,7 @@ module.exports ={
   createInvoice:(invoice,documentName)=>{
     let doc = new PDFDocument({ size: "A4", margin: 50 });
 
-   // generateHeader(doc);
+    //generateHeader(doc);
    console.log('checking invoice');
    console.log(invoice);
     generateCustomerInformation(doc, invoice);
