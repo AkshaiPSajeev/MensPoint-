@@ -93,10 +93,15 @@ router.get('/cart',verifyLogin,async(req,res)=>{
   res.render('user/cart',{products:products,user:req.session.user,orderSummary:orderSummary });
 });
 
-router.get('/add-to-cart/:id',verifyLogin,(req,res)=>{
-  userHelpers.addToCart(req.params.id,req.session.user._id).then(()=>{
-    res.json({status:true})
-  });
+router.get('/add-to-cart/:id',(req,res)=>{
+  if(req.session.user_id){
+    userHelpers.addToCart(req.params.id,req.session.user._id).then(()=>{
+      res.json({status:true})
+    });
+  }else{
+    res.redirect('/login');
+  }
+
 });
 
 router.get('/product-details/:productid',async(req,res)=>{
