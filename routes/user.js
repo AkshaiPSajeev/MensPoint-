@@ -33,9 +33,11 @@ router.get('/', async function(req, res, next) {
 });
 
 router.get('/login',(req,res)=>{
- if(req.session.loggedIn){
+  console.log('hiii');
+ if(req.session.user_id){
     res.redirect('/');
     }else{
+      console.log('its here');
   res.render('user/login',{logerror:req.session.logerror,loginPage:true});
   req.session.logerror=false;
     }
